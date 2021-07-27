@@ -1,5 +1,5 @@
 const {DataTypes} = require('sequelize');
-const sequelize = require("../utils/db");
+const sequelize = require('../../utils/db');
 
 const Leads = sequelize.define("lead", {
     first_name: {
@@ -18,7 +18,7 @@ const Leads = sequelize.define("lead", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    s_email:{
+    secondary_email:{
         type: DataTypes.STRING,
         allowNull: false
     },

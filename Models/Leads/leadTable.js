@@ -1,5 +1,5 @@
-const {DataTypes} = require("sequelize");
-const sequelize = require("../utils/db");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../../utils/db");
 
 const LeadsTable = sequelize.define("leadtable", {
     label: {
@@ -17,10 +17,12 @@ const LeadsTable = sequelize.define("leadtable", {
     }, section : {
         type: DataTypes.STRING,
         allowNull: true
+    }, order: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 
 });
-
 
 
 

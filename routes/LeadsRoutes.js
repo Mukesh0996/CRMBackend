@@ -1,10 +1,15 @@
 const express = require("express");
 const leadsRouter = express.Router();
-const leadstable = require("../Models/leadTable");
 const leadsController = require("../controllers/leadsController");
+const isAuth = require("../middlewares/isAuth");
 
-leadsRouter.get("/leadstable", leadsController.getLeadsFields)
-.post("/addrecord",leadsController.addLeadReacord)
+leadsRouter.get("/leadstable", isAuth, leadsController.getLeadsFields)
+
+.post("/addrecord", isAuth, leadsController.addLeadReacord)
+
+.get('/getrecords', isAuth, leadsController.getLeadsRecords)
+
+.get('/getfilterColumns', isAuth, leadsController.getleadsFilters)
 
 
 

@@ -5,11 +5,13 @@ const app = express();
 
 const authRouter = require("./routes/authRoutes");
 const leadsRouter = require("./routes/LeadsRoutes");
+const contactsRouter = require("./routes/ContactsRoutes");
 
 const Org = require('./Models/signup');
 const User = require('./Models/user');
-const LeadsTable = require("./Models/leadTable");
-const Leads = require("./Models/leads");
+const Leads = require("./Models/Leads/leads");
+const leadsSeeder = require("./Seeder/leadsSeeder");
+const ContactsTable = require("./Models/Contacts/contactsTable");
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,6 +25,8 @@ app.use(bodyParser.json());
 
 app.use("/", authRouter);
 app.use("/org/:orgId/leads",leadsRouter);
+app.use("/org/:orgId/contacts", contactsRouter);
+
 
 //middle ware that throws error
 app.use((error, req, res, next) => {
@@ -31,7 +35,7 @@ app.use((error, req, res, next) => {
     const isValid = error.IsValid|| false;
     const value = error.value|| "";
     res.status(status).json({ message: message, status: status, isValid: isValid, value: value });
-})
+});
 
 Org.hasMany(User);
 User.belongsTo(Org);
