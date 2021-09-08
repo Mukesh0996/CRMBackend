@@ -61,7 +61,7 @@ exports.addLeadReacord = async (req,res, next) => {
            error.statusCode = 401;
            throw(error);
        }
-       res.status(200).json({data: leadRecord})
+       res.status(200).json({data: leadRecord.id})
     } catch (error) {
        
         if(!error.statusCode) {
@@ -78,7 +78,7 @@ exports.getLeadsRecords = async(req, res, next) => {
                 where: {
                     userUserId: req.userId
                 },
-                attributes: ["id","first_name","last_name","company","email","website","lead_scource"]
+                attributes: ["id","first_name","last_name","company","email","secondary_email","website"]
             });
 
             const leadCols = await LeadsTable.findAll({
@@ -92,7 +92,7 @@ exports.getLeadsRecords = async(req, res, next) => {
 
             leadCols.sort((a,b)=> {
                 return  a.order > b.order ? 1 : -1;
-            })
+            });
             res.status(200).json({data: {leads, leadCols}})
         
     } catch (error) {
@@ -120,4 +120,14 @@ exports.getleadsFilters = async (req, res, next) => {
         }
         next(error);
     }
+}
+
+exports.getLeadRecord = async (req, res, next) => {
+    try {
+
+        
+    } catch (error) {
+        
+    }
+    next(error);
 }
