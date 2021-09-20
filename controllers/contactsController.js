@@ -3,7 +3,7 @@ const ContactsTable = require("../Models/Contacts/contactsTable")
 
 exports.getContactFields = async (req, res, next) => {
     try {
-        let information = {}, mailing = {}, shipping = {};
+        let information = {}, billing = {}, shipping = {};
 
         const informationFields = await ContactsTable.findAll({
            where: {
@@ -20,17 +20,17 @@ exports.getContactFields = async (req, res, next) => {
                 [field.name]: {...field.dataValues}
             }
         })
-        const mailingFields = await ContactsTable.findAll({
+        const billingFilds = await ContactsTable.findAll({
             where: {
-                section:"mailing"
+                section:"billing"
             }
         });
-        mailingFields.sort((a,b)=>{
+        billingFilds.sort((a,b)=>{
             return a.order > b.order ? 1 : -1
         });
-        mailingFields.forEach(field => {
-            mailing = {
-                ...mailing,
+        billingFilds.forEach(field => {
+            billing = {
+                ...billing,
                 [field.name] : { ...field.dataValues }
             }
         })
@@ -40,6 +40,7 @@ exports.getContactFields = async (req, res, next) => {
                 section:"shipping"
             }
         });
+        console.log(shippingFields);
         shippingFields.sort((a,b)=>{
             return a.order > b.order ? 1 : -1 
         });
@@ -49,7 +50,7 @@ exports.getContactFields = async (req, res, next) => {
                 [field.name] : { ...field.dataValues }
             }
         })
-        res.status(200).json({information, address: {shipping, mailing} })
+        res.status(200).json({information, address: {shipping, billing} })
     } catch (error) {
         
     }
