@@ -19,13 +19,12 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
 })
-
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
 app.use("/", authRouter);
-app.use("/org/:orgId/leads",leadsRouter);
-app.use("/org/:orgId/contacts", contactsRouter);
+app.use("/leads",leadsRouter);
+app.use("/contacts", contactsRouter);
 
 
 //middle ware that throws error
@@ -45,7 +44,7 @@ Leads.belongsTo(User);
 
 sequelize.sync().then(() => {
     app.listen(8080, () => {
-        console.log("connected")
+        console.log("connected");
     })
 })
 

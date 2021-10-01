@@ -77,6 +77,10 @@ const Leads = sequelize.define("lead", {
     country:{
         type: DataTypes.STRING,
         allowNull: false
+    },
+    orgId: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 });
 

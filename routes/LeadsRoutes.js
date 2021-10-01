@@ -3,14 +3,15 @@ const leadsRouter = express.Router();
 const leadsController = require("../controllers/leadsController");
 const isAuth = require("../middlewares/isAuth");
 
-leadsRouter.get("/leadstable", isAuth, leadsController.getLeadsFields)
+leadsRouter.get("/org/:orgId/leadstable", isAuth, leadsController.getLeadsFields)
 
-.post("/addrecord", isAuth, leadsController.addLeadReacord)
+.post("/org/:orgId/addrecord", isAuth, leadsController.addLeadReacord)
 
-.get('/getrecords', isAuth, leadsController.getLeadsRecords)
+.get('/org/:orgId/getrecords', isAuth, leadsController.getLeadsRecords)
 
-.get('/getfilterColumns', isAuth, leadsController.getleadsFilters)
+.get('/org/:orgId/getfilterColumns', isAuth, leadsController.getleadsFilters)
 
+.get("/org/:orgId/lead/:leadId", isAuth, leadsController.getLeadRecord)
 
 
 

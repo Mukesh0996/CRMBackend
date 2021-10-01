@@ -1,6 +1,7 @@
 const Leads = require("../Models/Leads/leads");
 const LeadsTable = require("../Models/Leads/leadTable");
 const { Op } = require("sequelize");
+const User = require('../Models/user');
 
 const generateLeadId = () => {
     const randomID =  Math.random() * 100000;
@@ -44,7 +45,6 @@ exports.getLeadsFields = async (req, res, next) => {
 exports.addLeadReacord = async (req,res, next) => {
     try {
        const { last_name } = req.body;
-       
         if(!last_name) {
             let error = new Error("Last Name should not be empty");
             error.statusCode = 404;
@@ -63,7 +63,7 @@ exports.addLeadReacord = async (req,res, next) => {
        }
        res.status(200).json({data: leadRecord.id})
     } catch (error) {
-       
+
         if(!error.statusCode) {
             error.statusCode = 500;
             error.message = "Something Went Wrong"
@@ -124,10 +124,24 @@ exports.getleadsFilters = async (req, res, next) => {
 
 exports.getLeadRecord = async (req, res, next) => {
     try {
-
-        
+           
+            const {leadId} = req.params;
+            let record = {};
+            let leadRecord = await Leads.findOne({
+                where: {
+                    id: leadId
+                }
+            });
+            for(const entry in leadRecord.dataValues) {
+                record = {
+                    ...record,
+                    [entry] : {
+                        value: leadRecord.dataValues[entry]
+                    }
+                }
+            }
+            res.status(200).json({record});
     } catch (error) {
         
     }
-    next(error);
 }

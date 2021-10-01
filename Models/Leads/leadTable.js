@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 const sequelize = require("../../utils/db");
 
 const LeadsTable = sequelize.define("leadtable", {
@@ -20,7 +20,15 @@ const LeadsTable = sequelize.define("leadtable", {
     }, order: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    inBusinessCardView : {
+        type: Sequelize.BOOLEAN,
+        allowNull: true
+    },
+    businessCardOrder : {
+        type: DataTypes.INTEGER
     }
+
 
 });
 
