@@ -126,20 +126,21 @@ exports.getLeadRecord = async (req, res, next) => {
     try {
            
             const {leadId} = req.params;
-            let record = {};
             let leadRecord = await Leads.findOne({
                 where: {
                     id: leadId
                 }
             });
-            for(const entry in leadRecord.dataValues) {
-                record = {
-                    ...record,
-                    [entry] : {
-                        value: leadRecord.dataValues[entry]
-                    }
-                }
+            let record ={};
+            for(let key in leadRecord.dataValues) {
+                const updatedKey = key.split("_").map(singlekey => singlekey.charAt(0).toUpperCase() + singlekey.slice(1));
+                const finalKey = updatedKey.join(" ");
+               record = {
+                   ...record,
+                [finalKey]: leadRecord.dataValues[key]
+               }
             }
+          
             res.status(200).json({record});
     } catch (error) {
         
