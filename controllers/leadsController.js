@@ -146,3 +146,11 @@ exports.getLeadRecord = async (req, res, next) => {
         
     }
 }
+
+exports.addNoteRecord = async (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}

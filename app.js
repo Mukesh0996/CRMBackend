@@ -12,6 +12,7 @@ const User = require('./Models/user');
 const Leads = require("./Models/Leads/leads");
 const leadsSeeder = require("./Seeder/leadsSeeder");
 const ContactsTable = require("./Models/Contacts/contactsTable");
+const Notes = require("./Models/Notes/notes");
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -40,6 +41,8 @@ Org.hasMany(User);
 User.belongsTo(Org);
 User.hasMany(Leads);
 Leads.belongsTo(User);
+User.hasMany(Notes);
+Notes.belongsTo(User);
 
 
 sequelize.sync().then(() => {

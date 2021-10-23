@@ -74,11 +74,13 @@ exports.postLogin = async (req, res, next) => {
           error.statusCode = 400;
           throw(error);
     }
-     const token = jwt.sign({
+
+    const token = jwt.sign({
         orgId: user.OrgOrgId, 
         userId: user.user_id
      }, 'somesupersupersupersupersecret', {expiresIn: "1day"});
-    res.status(200).json({orgId: user.OrgOrgId, userId: user.user_id, token: token})
+     
+    res.status(200).json({orgId: user.OrgOrgId, userId: user.user_id, token: token, name: `${user.first_name} ${user.last_name}`})
   } catch (error) {
     if(!error.statusCode) {
         error.statusCode = 500;
