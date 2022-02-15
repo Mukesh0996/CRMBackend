@@ -1,6 +1,16 @@
-const Sequelize = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize('CRM', 'root', 'Mukesh@123', {dialect: "mysql", host:"localhost" })
+const CRMDB = new Sequelize("postgres://bkcwdqax:CeQBDZrLYBHHHH630M-kLDFWwiBuJkr6@raja.db.elephantsql.com/bkcwdqax");
 
+(async () => {
+  try {
+    await CRMDB.authenticate();
+    console.log("Connection Successfull");
+  } catch (error) {
+    console.log("-----------Error while connection------------");
+    console.error(error);
+    console.log("---------------------------------------");
+  }
+})();
 
-module.exports = sequelize;
+module.exports = CRMDB;

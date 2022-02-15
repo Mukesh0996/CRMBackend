@@ -21,7 +21,6 @@ const data = [{label:"First Name", value:"", type:"text", name:"first_name" , se
 
 const LeadsTable = require("../Models/Leads/leadTable");
 
-
 const leadsSeeder = async() => {
     console.log("exec");
     try {
