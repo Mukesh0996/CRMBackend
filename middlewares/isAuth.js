@@ -8,7 +8,6 @@ module.exports = (req, res, next) => {
         error.statusCode = 401;
         throw error;
     }
-   
     let decodedToken;
     const token = authHeader.split(" ")[1];
     try {

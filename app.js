@@ -3,9 +3,12 @@ const bodyParser = require("body-parser");
 const sequelize = require('./utils/db')
 const app = express();
 
+
+const homeRouter = require("./routes/HomeRouter");
 const authRouter = require("./routes/authRoutes");
 const leadsRouter = require("./routes/LeadsRoutes");
 const contactsRouter = require("./routes/ContactsRoutes");
+
 
 const Org = require('./Models/signup');
 const User = require('./Models/user');
@@ -23,13 +26,17 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
+
 app.use("/", authRouter);
+app.use("/home", homeRouter);
 app.use("/leads",leadsRouter);
 app.use("/contacts", contactsRouter);
 
 
+
 //middle ware that throws error
 app.use((error, req, res, next) => {
+    console.log(error.message);
     const status = error.statusCode || 500;
     const message = error.message || "something went wrong";
     const isValid = error.IsValid|| false;

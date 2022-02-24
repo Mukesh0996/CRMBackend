@@ -8,7 +8,7 @@ const Notes = sequelize.define("notes", {
         validate: {
             max: 10000
         }
-    } ,orgId: {
+    },orgId: {
         type: DataTypes.INTEGER,
         allowNull: false
     }
