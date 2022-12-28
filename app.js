@@ -16,13 +16,15 @@ const Leads = require("./Models/Leads/leads");
 const leadsSeeder = require("./Seeder/leadsSeeder");
 const ContactsTable = require("./Models/Contacts/contactsTable");
 const Notes = require("./Models/Notes/notes");
+const conSeeder = require("./Seeder/contactsSeeeder");
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
-})
+});
+
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
@@ -36,7 +38,7 @@ app.use("/contacts", contactsRouter);
 
 //middle ware that throws error
 app.use((error, req, res, next) => {
-    console.log(error.message);
+    console.log(error);
     const status = error.statusCode || 500;
     const message = error.message || "something went wrong";
     const isValid = error.IsValid|| false;
@@ -48,13 +50,11 @@ Org.hasMany(User);
 User.belongsTo(Org);
 User.hasMany(Leads);
 Leads.belongsTo(User);
-User.hasMany(Notes);
-Notes.belongsTo(User);
+
 
 
 sequelize.sync().then(() => {
     app.listen(8080, () => {
         console.log("connected");
-    })
-})
-
+    });
+});

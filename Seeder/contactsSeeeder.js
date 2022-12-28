@@ -24,16 +24,17 @@ const values = [{
     {
         label: "Skype ID", type:"text", value:"", name:"skype_id", section: "information", order: 9 
     },
-    {label:"State", type:"text",value:"", name:"state", section:"mailing", order: 3},
-    {label:"Street", type:"text",value:"", name:"street", section:"mailing", order: 1},
-    {label:"P.o.", type:"text",value:"", name:"po", section:"mailing", order: 4},
-    {label:"City", type:"text",value:"", name:"city", section:"mailing", order: 2},
-    {label:"Country", type:"text",value:"", name:"country", section:"mailing", order: 5},
-    {label:"State", type:"text",value:"", name:"state", section:"shipping"},
-    {label:"Street", type:"text",value:"", name:"street", section:"shipping", order: 1},
-    {label:"P.o.", type:"text",value:"", name:"po", section:"shipping"},
-    {label:"City", type:"text",value:"", name:"city", section:"shipping"},
-    {label:"Country", type:"text",value:"", name:"country", section:"shippings"}
+    {label:"State", type:"text",value:"", name:"billing_state", section:"billing", order: 3},
+    {label:"Street", type:"text",value:"", name:"billing_street", section:"billing", order: 1},
+    {label:"P.o.", type:"text",value:"", name:"billing_po", section:"billing", order: 4},
+    {label:"City", type:"text",value:"", name:"billing_city", section:"billing", order: 2},
+    {label:"Country", type:"text",value:"", name:"billing_country", section:"billing", order: 5},
+
+    {label:"State", type:"text",value:"", name:"shipping_state", section:"shipping", order: 3},
+    {label:"Street", type:"text",value:"", name:"shipping_street", section:"shipping", order: 1},
+    {label:"P.o.", type:"text",value:"", name:"shipping_po", section:"shipping", order: 4},
+    {label:"City", type:"text",value:"", name:"shipping_city", section:"shipping", order: 2},
+    {label:"Country", type:"text",value:"", name:"shipping_country", section:"shipping", order: 5}
 ]
 
 const conSeeder = async() => {

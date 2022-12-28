@@ -2,6 +2,7 @@ const Leads = require("../Models/Leads/leads");
 const LeadsTable = require("../Models/Leads/leadTable");
 const { Op } = require("sequelize");
 const User = require('../Models/user');
+const Notes = require("../Models/Notes/notes");
 
 const generateLeadId = () => {
     const randomID =  Math.random() * 100000;
@@ -125,13 +126,13 @@ exports.getleadsFilters = async (req, res, next) => {
 exports.getLeadRecord = async (req, res, next) => {
     try {
            
-            const {leadId} = req.params;
+            const {leadId, orgId} = req.params;
             let leadRecord = await Leads.findOne({
                 where: {
                     id: leadId
                 }
             });
-            let record ={};
+            let record ={}, notes;
             for(let key in leadRecord.dataValues) {
                 const updatedKey = key.split("_").map(singlekey => singlekey.charAt(0).toUpperCase() + singlekey.slice(1));
                 const finalKey = updatedKey.join(" ");
@@ -140,8 +141,9 @@ exports.getLeadRecord = async (req, res, next) => {
                 [finalKey]: leadRecord.dataValues[key]
                }
             }
-          
-            res.status(200).json({record});
+            notes = await Notes.findAll({where: {recId: leadId, orgId: Number(orgId)}})
+           
+            res.status(200).json({record:leadRecord, notes});
     } catch (error) {
         
     }
@@ -149,8 +151,18 @@ exports.getLeadRecord = async (req, res, next) => {
 
 exports.addNoteRecord = async (req, res, next) => {
     try {
-        
+
+        let {leadId} = req.params;
+        console.log(req.params);
+        let addNote = await Notes.create({
+            ...req.body,
+            module: "leads",
+            recId: leadId,
+        });
+
+        console.log(addNote);
+        res.status(200).json(addNote)
     } catch (error) {
-        
+        console.log(error);
     }
 }

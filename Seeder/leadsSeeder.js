@@ -26,7 +26,6 @@ const leadsSeeder = async() => {
     try {
 
         data.forEach( async rec => {
-            console.log(rec);
             console.log("inseerting");
             await LeadsTable.create(rec);
         })

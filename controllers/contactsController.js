@@ -1,8 +1,9 @@
 const ContactsTable = require("../Models/Contacts/contactsTable")
 
-
+// fetch contact Add form meta data
 exports.getContactFields = async (req, res, next) => {
     try {
+       
         let information = {}, billing = {}, shipping = {};
 
         const informationFields = await ContactsTable.findAll({
@@ -40,7 +41,7 @@ exports.getContactFields = async (req, res, next) => {
                 section:"shipping"
             }
         });
-        console.log(shippingFields);
+       
         shippingFields.sort((a,b)=>{
             return a.order > b.order ? 1 : -1 
         });
@@ -50,21 +51,42 @@ exports.getContactFields = async (req, res, next) => {
                 [field.name] : { ...field.dataValues }
             }
         })
+
         res.status(200).json({information, address: {shipping, billing} })
     } catch (error) {
         
     }
 
 }
-
-exports.getContactsRecords = async () => {
+// fetch contact records & record headers(limit 7)
+exports.getContactsRecords = async (req, res, next) => {
     try {
-        
+        const contactInformationFields = await ContactsTable.findAll({
+            where: {
+                section:"information"
+            }
+        })
+        let information= {};
+
+        res.status(200).json({contactsCols:contactInformationFields, contacts:[] });
     } catch (error) {
         
     }
 }
 
+exports.getContactFilterColumns = async (req,res, next) => {
+    try {
+        const fields = await ContactsTable.findAll({
+            attributes: ["label"]
+        });
+        res.status(200).json({data: {contactFilerColumns: fields}})
+
+    } catch(error) {
+
+    }
+}
+
+// add a record to the contacts table
 exports.addContactRecord = async () => {
     try {
         

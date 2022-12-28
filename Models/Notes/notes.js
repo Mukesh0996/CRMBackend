@@ -11,6 +11,12 @@ const Notes = sequelize.define("notes", {
     },orgId: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    module: {
+        type: DataTypes.STRING
+    },
+    recId: {
+        type: DataTypes.STRING
     }
 })
 

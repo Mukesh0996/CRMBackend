@@ -12,6 +12,7 @@ leadsRouter.get("/org/:orgId/leadstable", isAuth, leadsController.getLeadsFields
 .get('/org/:orgId/getfilterColumns', isAuth, leadsController.getleadsFilters)
 
 .get("/org/:orgId/lead/:leadId", isAuth, leadsController.getLeadRecord)
+.post("/org/:orgId/lead/:leadId/addNote", isAuth, leadsController.addNoteRecord)
 
 
 
